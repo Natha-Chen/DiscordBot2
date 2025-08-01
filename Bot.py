@@ -20,6 +20,6 @@ async def hello(ctx):
 async def on_message(message):
     if message.content.startswith('will you marry me'):
         channel = message.channel
-        await channel.send('⚡KYS⚡')
+        await message.channel.send('⚡KYS⚡')
 
 client.run('MTQwMDYzMzQxNjQ0MTAwNDA5Mw.Goyh5l.OeFKz44zcFPKati3-DCU0ceK7c6SVuEjZD6BGA')
