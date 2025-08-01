@@ -16,13 +16,10 @@ async def hello(ctx):
     print("hello")
     await ctx.send("Hello, I am a bot.")
 
-class MyClient(discord.Client):
-    async def on_message(self, message):
-        if message.author == self.user:
-            return
-
-        if message.content.startswith('will you marry me'):
-            await message.channel.send('KYS')
-
+@client.event
+async def on_message(message):
+    if message.content.startswith('will you marry me'):
+        channel = message.channel
+        await channel.send('⚡KYS⚡')
 
 client.run('MTQwMDYzMzQxNjQ0MTAwNDA5Mw.Goyh5l.OeFKz44zcFPKati3-DCU0ceK7c6SVuEjZD6BGA')
