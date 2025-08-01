@@ -7,7 +7,7 @@ client = commands.Bot(command_prefix = '!', intents=discord.Intents.default())
 async def on_ready():
     print("Bot Is Ready! Logged in as: {client.user}")
 
-@client.event
+@client.command()
 async def hello(ctx):
     await ctx.send("Hello, I am a bot.")
 
