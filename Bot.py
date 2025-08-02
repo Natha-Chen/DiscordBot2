@@ -37,7 +37,7 @@ async def on_member_join(member):
 async def hello(ctx):
     print("hello")
     await ctx.channel.send("Hello, I am a bot.")
-
+    
 toggle_chat = False
 @client.command()
 async def chat(ctx):
@@ -71,4 +71,4 @@ async def chat(ctx):
 
 
 
-client.run('MTQwMDYzMzQxNjQ0MTAwNDA5Mw.Goyh5l.OeFKz44zcFPKati3-DCU0ceK7c6SVuEjZD6BGA')
+client.run('MTQwMDYzMzQxNjQ0MTAwNDA5Mw.GgBL00.U-D8eGLN5UxWFnUI4DnNEoROQujJDolfAYiY2U')
