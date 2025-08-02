@@ -1,2 +1,3 @@
 # DiscordBot2
-Bot
+Bot.
+First project, please dont flame.
