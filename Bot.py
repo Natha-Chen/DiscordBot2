@@ -3,8 +3,8 @@ from discord.ext import commands
 import asyncio
 from PyCharacterAI import get_client
 from PyCharacterAI.exceptions import SessionClosedError
-
-token = "d82b8abebf44d99bb9ff03cc0625fac42c8cd1a7"
+from tokens import bot_token
+from tokens import token
 character_id = "k4CMesWIyypydwS_nNQfnBH7FbM4khINVFxICGtw0r8"
 
 
@@ -30,8 +30,7 @@ async def on_message(message):
 @client.event
 async def on_member_join(member):
     print("member joined")
-    channel = client.get_channel(1400952510243541022)
-    await channel.send(f"Hello {member.display_name}")
+    await member.send(f"Hello {member.display_name}")
 
 @client.command()
 async def hello(ctx):
@@ -71,4 +70,4 @@ async def chat(ctx):
 
 
 
-client.run('MTQwMDYzMzQxNjQ0MTAwNDA5Mw.GgBL00.U-D8eGLN5UxWFnUI4DnNEoROQujJDolfAYiY2U')
+client.run(bot_token)
