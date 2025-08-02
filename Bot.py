@@ -27,16 +27,16 @@ async def on_message(message):
     if message.content.startswith('will you marry me'):
         await message.channel.send('⚡KYS⚡')
 
+@client.event
+async def on_member_join(member):
+    print("member joined")
+    channel = client.get_channel(1400952510243541022)
+    await channel.send(f"Hello {member.display_name}")
+
 @client.command()
 async def hello(ctx):
     print("hello")
     await ctx.channel.send("Hello, I am a bot.")
-
-
-@client.event
-async def on_member_join(member):
-    channel = client.get_channel('')
-    await channel.send("Hello")
 
 toggle_chat = False
 @client.command()
