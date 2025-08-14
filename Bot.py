@@ -3,16 +3,34 @@ from discord.ext import commands
 import asyncio
 from PyCharacterAI import get_client
 from PyCharacterAI.exceptions import SessionClosedError
+from pyngrok import ngrok
+from dotenv import load_dotenv
 from tokens import bot_token
 from tokens import token
-character_id = "k4CMesWIyypydwS_nNQfnBH7FbM4khINVFxICGtw0r8"
+from tokens import channel_id
 
+
+load_dotenv()
+
+
+
+http_tunnel = ngrok.connect(addr='8080')
+
+character_id = "k4CMesWIyypydwS_nNQfnBH7FbM4khINVFxICGtw0r8"
 
 intents = discord.Intents.default() 
 intents.message_content = True 
 intents.guilds = True
 
-client = commands.Bot(command_prefix = '!', intents=intents)
+client = commands.Bot(command_prefix= '!', intents=intents)
+#command_prefix = '!',
+# Config values
+client.config = {
+	'target_channel': 'https://www.youtube.com/@MomosuzuNene',
+	'callback_url': http_tunnel.public_url,
+	'announcement_channel': channel_id
+}
+
 
 @client.event
 async def on_ready():
@@ -53,6 +71,7 @@ async def chat(ctx):
     print(f"Authenticated as @{me.username}")
     chat, greeting_message = await chat_client.chat.create_chat(character_id)
     await ctx.channel.send(greeting_message.get_primary_candidate().text)
+    
     @client.event
     async def on_message(message):
         global toggle_chat
@@ -69,5 +88,30 @@ async def chat(ctx):
             await message.channel.send("[Session Closed]")
 
 
+@client.event
+async def on_new_video(video_data):
+    print("update")
+	# Grab the channel from bot
+    channel = client.get_channel(client.config['announcement_channel'])
+	# Build embed message
+    embed = discord.Embed(
+        title=video_data['title'],
+        color=discord.Colour.blurple()
+    )
 
-client.run(bot_token)
+    embed.set_author(name=video_data['channel_name'])
+	# https://img.youtube.com/vi/<Video ID here>/1.jpg
+    embed.set_image(url=f'https://img.youtube.com/vi/{video_data["video_id"]}/1.jpg')
+    embed.add_field(name='URL', value=video_data['video_url'])
+    embed.set_thumbnail(url='https://i.imgur.com/zwHqAkd.png')
+
+	# Send message
+    await channel.send(f"{video_data['channel_name']} uploaded a new video.", embed=embed)
+
+async def main():
+    async with client:
+        await client.load_extension('webserver')
+        await client.start(bot_token)
+
+
+asyncio.run(main())
