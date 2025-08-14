@@ -3,7 +3,7 @@ from aiohttp import web, ClientSession
 import xmltodict
 import discord 
 from discord.ext import commands
-
+from tokens import youtube_id
 # Pycord Cog class
 class YoutubeHook(commands.Cog):
 	def __init__(self, client):
@@ -15,7 +15,7 @@ class YoutubeHook(commands.Cog):
 	async def web_server(self):
 		# This is required to use decorators for routes
 		routes = web.RouteTableDef()
-		
+
 		# The youtube API sends a get request for the initial authorization
 		@routes.get('/')
 		async def authenticate(request):
@@ -78,7 +78,7 @@ class YoutubeHook(commands.Cog):
 		# Start web client to send post request
 		async with ClientSession() as session:
 			# Grab the ID from the channel url
-			channel_id = 'UCgQeYz9YoPGrkQsObh5TFGQ'
+			channel_id = youtube_id
 			#self.bot.config["target_channel"].split('/')[-1]
 
 			# Prepare the form data required to subscribe
