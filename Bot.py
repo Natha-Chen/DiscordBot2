@@ -101,9 +101,9 @@ async def on_new_video(video_data):
 
     embed.set_author(name=video_data['channel_name'])
 	# https://img.youtube.com/vi/<Video ID here>/1.jpg
-    embed.set_image(url=f'https://img.youtube.com/vi/{video_data["video_id"]}/1.jpg')
+    embed.set_image(url=f'https://img.youtube.com/vi/{video_data["video_id"]}/default.jpg')
     embed.add_field(name='URL', value=video_data['video_url'])
-    embed.set_thumbnail(url='https://i.imgur.com/zwHqAkd.png')
+    embed.set_thumbnail(url='https://yt3.googleusercontent.com/yQDRxiMIkbHsn7e4s6BCIBCNb3WmiV1myrpo6Lq2-dfCmAn1N47y12mhZg0NOfQMWQMYW4Qm=s176-c-k-c0x00ffffff-no-rj-mo')
 
 	# Send message
     await channel.send(f"{video_data['channel_name']} uploaded a new video.", embed=embed)
