@@ -1,0 +1,7 @@
+aiohttp==3.12.15
+discord.py==2.5.2
+PyCharacterAI==2.2.50
+pyngrok==7.3.0
+python-dotenv==1.1.1
+tokens==0.0.3
+xmltodict==0.14.2
