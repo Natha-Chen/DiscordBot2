@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from tokens import bot_token
 from tokens import token
 from tokens import channel_id
-
+import re
 
 load_dotenv()
 
@@ -108,9 +108,23 @@ async def on_new_video(video_data):
 	# Send message
     await channel.send(f"{video_data['channel_name']} uploaded a new video.", embed=embed)
 
+@client.event
+async def on_nitter_tweet(entry):
+    print("update")
+    channel = client.get_channel(client.config['announcement_channel'])
+    title = entry.get("title", "")
+    link = entry.get("link", "")
+    id = re.search(r"/status/(\d+)#m$", link)
+    id = id.group(1)
+    await channel.send(f"https://x.com/momosuzunene/status/{id}")
+
+
+
+
 async def main():
     async with client:
         await client.load_extension('webserver')
+        await client.load_extension('nitter')
         await client.start(bot_token)
 
 
