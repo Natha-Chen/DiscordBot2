@@ -108,9 +108,16 @@ async def on_new_video(video_data):
 	# Send message
     await channel.send(f"{video_data['channel_name']} uploaded a new video.", embed=embed)
 
+
+@client.event
+async def on_new_tweet(tweet):
+    channel = client.get_channel(client.config['announcement_channel'])
+    await channel.send(f"Nenechi has tweeted!: https://twitter.com/twitter/statuses/{tweet.id}")
+
 async def main():
     async with client:
         await client.load_extension('webserver')
+        await client.load_extension('twitter')
         await client.start(bot_token)
 
 

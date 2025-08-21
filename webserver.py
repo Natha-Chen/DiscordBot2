@@ -106,6 +106,7 @@ class YoutubeHook(commands.Cog):
 		asyncio.ensure_future(self.site.stop())
 
 async def setup(client):
+	print("hi")
 	hook = YoutubeHook(client) # Create hook
 	await client.add_cog(hook) # add hook to bot to get context
 	client.loop.create_task(hook.web_server()) # Create web server and attach it to bot event loop
